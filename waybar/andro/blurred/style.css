@@ -1,0 +1,105 @@
+@import "$HOME/.config/waybar/override.css";
+
+* {
+    font-size: 12px;
+    font-family: "Cantarell Regular";
+}
+
+tooltip * {
+    color: white;
+}
+
+.modules-left > * {
+    color: @color-left;
+}
+
+.modules-center > * {
+    color: @color-center;
+}
+
+.modules-right > * {
+    color: @color-right;
+}
+
+/*   left   */
+
+#workspaces button {
+    padding: 0px 3px;
+    border: none;
+    color: @color-left;
+    background: rgba(0, 0, 0, 0);
+    transition: none;
+    text-shadow: none;
+}
+
+#custom-mediaplayer {
+}
+
+/*  center  */
+
+window#waybar {
+    background: rgba(0, 0, 0, 0);
+}
+
+/*   right   */
+
+#tray {
+}
+
+#custom-separator {
+    padding-bottom: 3px;
+}
+
+#pulseaudio {
+    margin: 0 -1px 0 1px;
+}
+
+#network {
+}
+
+#network.wifi {
+    margin-left: 0px;
+    padding-right: 2px;
+}
+
+#network.ethernet {
+    margin-left: -1px;
+    padding-right: 2px;
+}
+
+#custom-network-status.no-internet {
+    margin-left: -2px;
+    padding-right: 2px;
+    color: lightcoral;
+}
+
+#bluetooth.connected {
+    margin-left: -1px;
+    padding-right: 3px;
+}
+
+#battery {
+    padding-left: 3px;
+}
+
+#temperature {
+    padding-left: 3px;
+}
+
+#clock {
+    padding-right: 10px;
+}
+
+/*   misc   */
+
+#custom-spacer {
+    margin-left: 6px;
+}
+
+#custom-tray-brakcet-left {
+    margin-right: 20px;
+}
+
+#custom-tray-brakcet-right {
+    margin-left: 6px;
+}

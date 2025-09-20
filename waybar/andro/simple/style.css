@@ -1,0 +1,105 @@
+* {
+    font-family: "Cantarell Regular";
+    font-size: 12px;
+}
+
+window#waybar {
+    background-color: black;
+    color: #ffffff;
+}
+
+.modules-left {
+    background-color: black;
+    padding: 0px 0px 0px 0px;
+}
+
+.modules-right {
+    background-color: black;
+    padding: 0px 5px 0px 0px;
+}
+
+#custom-bracket-left {
+    margin-left: 14px;
+    padding-right: 4px;
+}
+
+#custom-bracket-right {
+    margin-left: 3px;
+}
+
+#custom-bracket-left-tray {
+    padding-right: 4px;
+}
+
+#custom-spacer {
+    margin-left: 6px;
+}
+
+#workspaces {
+}
+
+#workspaces button {
+    padding: 0px 0px 0px 0px;
+    color: white;
+    background-color: black;
+    border: none;
+    transition: none;
+    text-shadow: none;
+}
+
+#workspaces button:hover {
+    background: transparent;
+}
+
+#window {
+    color: #ffffff;
+    background-color: black;
+    padding: 0px 10px 0px 10px;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+    color: transparent;
+}
+
+window#waybar.empty {
+    background-color: black;
+}
+
+#custom-mediaplayer {
+    padding: 0px 15px 0px 15px;
+}
+
+#network,
+#bluetooth,
+#temperature,
+#backlight,
+#pulseaudio,
+#power-profiles-daemon {
+    padding: 0px 15px 0px 0px;
+}
+
+#clock {
+    margin: 0px 9px 0px 0px;
+}
+
+#custom-tray-bracket-left {
+    margin: 0px 0px 0px 0px;
+}
+
+#custom-tray-bracket-right {
+    margin: 0px 15px 0px 0px;
+}
+
+#tray {
+    padding: 0px 5px 0px 5px;
+    margin: 2px 0px 0px 0px;
+}
+
+#battery.critical {
+    color: #ff5555;
+}
+
+#network.disconnected {
+    color: #ff5555;
+}

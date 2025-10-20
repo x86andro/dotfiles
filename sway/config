@@ -121,15 +121,16 @@ floating_modifier $meta
 #bindsym $meta+button1 move
 
 bindsym $meta+shift+b exec swaymsg reload && $HOME/.config/sway/scripts/waybar-theme.sh load
-bindsym $meta+ctrl+Return exec "rofi -show drun -theme $HOME/.config/rofi/themes/andro.rasi -display-drun ''"
-bindsym $meta+l exec "gtklock -d --time-format '%H:%M' --date-format '%A, %d.%m.%Y' -s $HOME/.config/gtklock/andro/style.css"
+bindsym $meta+ctrl+return exec "rofi -show drun -theme $HOME/.config/rofi/themes/andro.rasi -display-drun ''"
+bindsym $meta+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh"
+bindsym ctrl+$meta+mod1+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh suspend"
 bindsym $meta+shift+s exec "$HOME/.config/andro/scripts/misc/screenshot.sh area"
 bindsym $meta+s exec "$HOME/.config/andro/scripts/misc/screenshot.sh all"
 bindsym ctrl+shift+escape exec "alacritty -e htop"
-bindsym control+mod1+delete exec "missioncenter"
+bindsym ctrl+mod1+delete exec "missioncenter"
 bindsym $meta+g exec "$HOME/.config/andro/scripts/personal/clip.sh clip"
 
-bindsym $meta+Return exec "alacritty"
+bindsym $meta+return exec "alacritty"
 bindsym $meta+b exec "librewolf"
 bindsym $meta+e exec "thunar"
 bindsym mod1+F4 kill

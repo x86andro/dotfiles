@@ -5,6 +5,8 @@
 dir="$HOME/Pictures/screenshots/"
 name="screenshot_$(date +%d%m%Y_%H%M%S).png"
 
+mkdir -p $dir
+
 all_screens() {
     grim "$dir$name"
     cat "$dir$name" | wl-copy --type image/png

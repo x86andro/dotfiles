@@ -32,6 +32,9 @@
         "format": "[ {:%r} ]",
         "tooltip-format": "{:%A, %d/%m/%Y}",
         "interval": 1,
+        "on-click": "gnome-clocks",
+        "on-click-right": "gnome-calendar",
+        "cursor": false
     },
 
     "battery": {

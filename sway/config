@@ -1,21 +1,21 @@
-output "Iiyama North America PL2570HS 1183122201461" {
+output 'Iiyama North America PL2570HS 1183122201461' {
     enable
     position 1280 0
     resolution 1920x1080@165hz
 }
 
-focus output "Iiyama North America PL2570HS 1183122201461"
-workspace 1 output "Iiyama North America PL2570HS 1183122201461"
+focus output 'Iiyama North America PL2570HS 1183122201461'
+#workspace 1 output 'Iiyama North America PL2570HS 1183122201461'
 
-output "Ancor Communications Inc ASUS MM17D 78L80B0389" {
+output 'Ancor Communications Inc ASUS MM17D 78L80B0389' {
     enable
     position 0 0
     resolution 1280x1024@75hz
 }
 
-output "Unknown Unknown Unknown" disable
+output 'Unknown Unknown Unknown' disable
 
-output "LG Display 0x521 Unknown" {
+output 'LG Display 0x521 Unknown' {
     enable
     position 0 0
     resolution 1928x1080@60hz
@@ -34,6 +34,7 @@ exec "/usr/bin/otd-daemon"
 exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
 
+seat seat0 xcursor_theme Bibata-Modern-Ice 22
 
 input * {
     xkb_layout us
@@ -98,7 +99,6 @@ for_window [app_id="io.missioncenter.MissionCenter"] floating enable
 for_window [app_id="com.github.wwmm.easyeffects"] floating enable
 for_window [app_id="it.mijorus.smile"] floating enable
 for_window [app_id="org.nickvision.cavalier"] floating enable
-for_window [app_id="org.gnome.Calendar"] floating enable
 for_window [app_id="nwg-look"] floating enable
 for_window [app_id="glxgears"] floating enable
 for_window [app_id="(?i)thunar" title="^(?!.*Thunar)"] floating enable
@@ -108,6 +108,9 @@ for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 for_window [app_id="net.davidotek.pupgui2"] floating enable
 for_window [app_id="zenity"] floating enable
 for_window [app_id="org.keepassxc.KeePassXC" title="Generate Password"] floating enable
+for_window [app_id="org.gnome.Calendar"] floating enable
+for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [app_id="org.gnome.clocks"] floating	enable
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
@@ -132,7 +135,7 @@ bindsym $meta+g exec "$HOME/.config/andro/scripts/personal/clip.sh clip"
 
 bindsym $meta+return exec "alacritty"
 bindsym $meta+b exec "librewolf"
-bindsym $meta+e exec "thunar"
+bindsym $meta+e exec "nautilus"
 bindsym mod1+F4 kill
 bindsym $meta+q kill
 bindsym $meta+F11 fullscreen
@@ -186,10 +189,10 @@ bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec "playerctl previous"
 
 bindsym XF86AudioMute exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"         # F1
-bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"    # F2
-bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5%"    # F3
-bindsym XF86MonBrightnessDown exec "$HOME/.config/andro/scripts/misc/brightness.sh decrease" # F5
-bindsym XF86MonBrightnessUp exec "$HOME/.config/andro/scripts/misc/brightness.sh increase"   # F6
+bindsym XF86AudioLowerVolume exec sh -c "pactl set-sink-volume @DEFAULT_SINK@ -5%"    # F2
+bindsym XF86AudioRaiseVolume exec sh -c "pactl set-sink-volume @DEFAULT_SINK@ +5%"    # F3
+bindsym XF86MonBrightnessDown exec sh -c "$HOME/.config/andro/scripts/misc/brightness.sh decrease" # F5
+bindsym XF86MonBrightnessUp exec sh -c "$HOME/.config/andro/scripts/misc/brightness.sh increase"   # F6
 bindsym XF86Keyboard exec "playerctl previous" # F11
 bindsym XF86Favorites exec "playerctl next"    # F12
 

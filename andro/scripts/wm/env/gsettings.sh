@@ -8,3 +8,5 @@ gsettings set org.gnome.desktop.interface cursor-theme "Bibata-Modern-Ice"
 gsettings set org.gnome.desktop.interface cursor-size "22"
 gsettings set org.gnome.desktop.interface font-hinting "slight"
 gsettings set org.gnome.desktop.interface text-scaling-factor "1"
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal use-generic-terminal-name true

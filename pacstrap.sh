@@ -14,6 +14,7 @@ install() {
     #sound
     #network
     #bluetooth
+    #printer
     #laptop
 }
 
@@ -28,7 +29,7 @@ aur_helper() {
 }
 
 generic() {
-    yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek
+    yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek man-db less
 }
 
 fonts() {
@@ -75,14 +76,20 @@ network() {
 
 bluetooth() {
     yay -S --noconfirm --needed bluez bluez-libs bluez-utils blueman
+    sudo systemctl enable bluetooth.service
 }
 
 dotfiles_dependencies() {
-    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts rofi-wayland starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal network-manager-applet wl-clipboard thunar
+    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts rofi-wayland starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
+}
+
+printer() {
+    yay -S cups gutenprint
+    sudo systemctl enable cups.service
 }
 
 laptop() {
-    yay -S --noconfirm --needed acpilight laptop-mode-tools upower powerstat powertop tuned
+    yay -S --noconfirm --needed acpilight laptop-mode-tools upower powerstat powertop tuned power-profiles-daemon
     sudo systemctl enable laptop-mode.service tuned.service
     sudo usermod -aG video $USER
 }
@@ -91,15 +98,30 @@ print_usage() {
     echo -e "choose what to install by un/commenting options in the install() section of this script\nonce you're done, run <$(basename "$0") install> to begin installation\n"
 }
 
-su_install() {
+su() {
     sudo -v
     while true; do
        sleep 60
        sudo -n true
     done &
     sudo_session_pid=$!
-    install
+}
+
+su_finish () {
     kill $sudo_session_pid
+}
+
+aur_helper_check() {
+    if ! command -v "yay" >/dev/null 2>&1; then
+       aur_helper
+    fi
+}
+
+multilib_check {
+    if ! grep -A1 '^\[multilib\]' "/etc/pacman.conf" | grep -q '^Include *= *'; then
+        echo -n "[!] 32bit package support is disabled!\nuncomment [multilib] and the line after it in /etc/pacman.conf, and try again."
+        exit 1
+    fi
 }
 
 if [[ $# -eq 0 ]]; then
@@ -107,19 +129,21 @@ if [[ $# -eq 0 ]]; then
     print_usage
     exit 1
 elif [[ $1 == "install" ]]; then
-    if ! command -v "yay" >/dev/null 2>&1; then
-       aur_helper
-    fi
+    aur_helper_check
+    multilib_check
     yay -Sy --save --answerclean None --answerdiff None --noansweredit None --noconfirm --removemake
-    su_install
+    su
+    install
+    su_finish
     yay -Sy --save --noanswerclean --noanswerdiff --noansweredit --askremovemake > /dev/null 2>&1
     exit
 elif [[ $1 == "install-dependencies" ]]; then
-    if ! command -v "yay" >/dev/null 2>&1; then
-       aur_helper
-    fi
+    aur_helper_check
+    multilib_check
     yay -Sy --save --answerclean --answerdiff --noansweredit --noconfirm --removemake > /dev/null 2>&1
+    su
     dotfiles_dependencies
+    su_finish
     yay -Sy --save --noanswerclean --noanswerdiff --noansweredit --askremovemake > /dev/null 2>&1
     exit
 elif [[ $1 == "help" ]]; then

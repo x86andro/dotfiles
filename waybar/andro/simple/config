@@ -38,7 +38,9 @@
     },
 
     "battery": {
-        "format": "[ {capacity}",
+        "format": "[ b: {capacity}",
+        "format": "[   {capacity}",
+        "format-plugged": "[   {capacity}",
         "tooltip-format": "battery: {capacity}%\nestimated time: {time}\npower draw: {power}W",
     	"tooltip-format-charging": "battery: {capacity}% [AC]",
     	"tooltip-format-plugged": "battery: {capacity}% [AC]",
@@ -81,14 +83,16 @@
     },
 
     "pulseaudio": {
-        "format": "[ {icon} ]",
+        "format": "[ {volume}% ]",
+        //"format": "[ {icon} ]",
         "format-icons": ["|      ", "||    ", "|||  ", "||||"],
-        "format-bluetooth": "[ bt {volume}% ]",
+        "format-bluetooth": "[ bt: {volume}% ]",
         "format-muted":"[ muted ]",
-        "tooltip-format": "volume: {volume}%",
+        "tooltip-format": "{desc}\nvolume: {volume}%",
         "on-click": "pavucontrol",
         "on-click-right": "easyeffects",
         "scroll-step": 5,
+        "smooth-scrolling-threshold": 2,
         "cursor": false
     },
 

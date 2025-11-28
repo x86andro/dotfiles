@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 install() {
     dotfiles_dependencies
@@ -29,7 +29,7 @@ aur_helper() {
 }
 
 generic() {
-    yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek man-db less
+    yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc jq htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek man-db less
 }
 
 fonts() {
@@ -37,7 +37,7 @@ fonts() {
 }
 
 themes() {
-    yay -S --noconfirm --needed adwaita-icon-theme adwaita-icon-theme-legacy bibata-cursor-theme papirus-icon-theme nwg-look xdg-desktop-portal-gtk qt5-wayland qt5ct qt5-styleplugins qt6-wayland qt6ct gnome-themes-extra adwaita-qt5-git adwaita-qt6-git
+    yay -S --noconfirm --needed adwaita-icon-theme adwaita-icon-theme-legacy bibata-cursor-theme papirus-icon-theme nwg-look xdg-desktop-portal-gtk qt5-wayland qt5ct qt6-wayland qt6ct gnome-themes-extra adwaita-qt5-git adwaita-qt6-git gtk2-compat
 }
 
 drivers_amd() {
@@ -66,7 +66,7 @@ wine() {
 
 sound() {
     yay -S --noconfirm --needed pipewire lib32-pipewire pipewire-pulse pavucontrol wireplumber
-    systemctl --user enable --now pipewire.service pipewire-pulse.service wireplumber.service
+    systemctl --user enable --now {pipewire,pipewire-pulse,wireplumber}.service
 }
 
 network() {
@@ -89,8 +89,8 @@ printer() {
 }
 
 laptop() {
-    yay -S --noconfirm --needed acpilight laptop-mode-tools upower powerstat powertop tuned power-profiles-daemon
-    sudo systemctl enable laptop-mode.service tuned.service
+    yay -S --noconfirm --needed acpilight laptop-mode-tools upower powerstat powertop tuned power-profiles-daemon throttled
+    sudo systemctl enable {laptop-mode,tuned,throttled}.service
     sudo usermod -aG video $USER
 }
 

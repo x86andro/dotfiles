@@ -4,8 +4,8 @@
     "size": {
       "maxPrefix": "MB",
       "ndigits": 0,
-      "binaryPrefix": "iec"
-    }
+      "binaryPrefix": "iec",
+    },
   },
   "modules": [
     "break",
@@ -15,71 +15,73 @@
 
     {
       "type": "os",
-      "format": "{2}"
-    },
-
-    {
-      "type": "board",
-      "key": "Host",
-      "format": "{1}"
+      "format": "{name}",
     },
 
     {
       "type": "kernel",
-      "format": "{release}"
+      "format": "{release}",
     },
 
     {
-      "type": "uptime"
+      "type": "uptime",
+      "format": "{formatted}, {seconds} seconds",
     },
 
     {
       "type": "packages",
-      "format": "{}"
+      "format": "{all}",
     },
 
     {
       "type": "shell",
-      "format": "{1}"
+      "format": "{pretty-name}",
     },
 
     "de",
 
     {
-       "type": "wm",
-       "format": "{2} ({3})"
+      "type": "wm",
+      "format": "{pretty-name} ({protocol-name})",
     },
 
     "wmtheme",
 
     {
       "type": "terminal",
-      "format": "{1}"
+      "format": "{pretty-name}",
+    },
+
+    {
+      "type": "host",
+      "format": "{name}",
     },
 
     {
       "type": "cpu",
-      "format": "{1} {8}",
-      "temp": true
+      "format": "{name} {temperature}",
+      "temp": true,
     },
 
     {
       "type": "gpu",
-      "format": "{2} {4}",
-      "temp": true
+      "format": "{name} {temperature}",
+      "temp": true,
     },
     {
       "type": "memory",
-      "format": "{} / {}"
+      "format": "{used} / {total}",
     },
 
     "break",
 
     {
       "type": "localip",
-      "key": "Local IP"
+      "key": "Local IP",
+      "format": "{ipv4} on {ifname} @ {speed}",
+      "showSpeed": true,
     },
 
-    "break"
-  ]
+    "break",
+  ],
 }

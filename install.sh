@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 config="$HOME/.config"
 share="$HOME/.local/share"

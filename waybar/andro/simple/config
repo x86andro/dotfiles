@@ -1,22 +1,22 @@
 {
-	"layer": "top",
-	"position": "top",
+    "layer": "top",
+    "position": "top",
     "height": 27,
     "reload_style_on_change": true,
 
     "modules-left": ["custom/bracket-left", "sway/workspaces", "hyprland/workspaces", "custom/bracket-right", "custom/mediaplayer"],
     "modules-center": ["sway/window", "hyprland/window"],
-    "modules-right": ["network", "bluetooth", "pulseaudio", "custom/tray-bracket-left", "tray", "custom/tray-bracket-right", "battery", "power-profiles-daemon", "clock"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "custom/tray-bracket-left", "tray", "custom/tray-bracket-right", "battery", "clock"],
 
 
-	"sway/workspaces": {
+    "sway/workspaces": {
         "disable-scroll": true,
         "disable-markup": true,
         "format": "{index}",
         "cursor": false
     },
 
-	"sway/window": {
+    "sway/window": {
     	"format": "[ {} ]",
     	"max-length": 150,
         "tooltip": false
@@ -38,9 +38,9 @@
     },
 
     "battery": {
-        "format": "[ b: {capacity}",
-        "format": "[   {capacity}",
-        "format-plugged": "[   {capacity}",
+        "format": "[ b: {capacity}% ]",
+        "format-plugged": "[   {capacity}% ]",
+        "format-plugged": "[   {capacity}% ]",
         "tooltip-format": "battery: {capacity}%\nestimated time: {time}\npower draw: {power}W",
     	"tooltip-format-charging": "battery: {capacity}% [AC]",
     	"tooltip-format-plugged": "battery: {capacity}% [AC]",
@@ -62,29 +62,27 @@
         "tooltip-format-wifi": "{essid} [{bssid}] [{frequency}GHz]\nstrength: {signalStrength}%, {signaldBm}dBm\n{ipaddr} @ {ifname}",
         "interval": 60,
         "on-click": "nm-connection-editor",
-	    "on-click-right": "alacritty -e nmtui",
-		"cursor": false
+	"on-click-right": "alacritty -e nmtui",
+	"cursor": false
     },
 
     "bluetooth": {
         "format": "",
         "format-on": "[ bt ]",
         "format-connected": "[ bt ]",
-        //"format-off": "[ bt off ]",
         "format-disabled": "[ bt ]",
         "tooltip-format-on": "hostname: {controller_alias}",
         "tooltip-format-disabled": "bluetooth disabled",
         "tooltip-format-connected": "hostname: {controller_alias} [{controller_address}]\n\ndevices connected: {num_connections}\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias} [{device_address}]",
         "tooltip-format-enumerate-connected-battery": "{device_alias} [{device_battery_percentage}%] [{device_address}]",
-    	"on-click": "blueman-manager & sleep 1.5s && pkill blueman-applet",
+    	"on-click": "blueman-applet & blueman-manager && pkill blueman-applet",
         "on-click-right": "alacritty -e bluetoothctl",
         "cursor": false
     },
 
     "pulseaudio": {
         "format": "[ {volume}% ]",
-        //"format": "[ {icon} ]",
         "format-icons": ["|      ", "||    ", "|||  ", "||||"],
         "format-bluetooth": "[ bt: {volume}% ]",
         "format-muted":"[ muted ]",

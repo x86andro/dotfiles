@@ -17,7 +17,7 @@ output 'Ancor Communications Inc ASUS MM17D 78L80B0389' {
 
 output 'Unknown Unknown Unknown' disable
 
-output 'LG Display 0x521 Unknown' {
+output 'LG Display 0x0521 Unknown' {
     enable
     position 0 0
     resolution 1928x1080@60hz
@@ -32,10 +32,10 @@ exec_always "$HOME/.config/sway/scripts/wallpaper.sh load"
 exec "$HOME/.config/sway/scripts/waybar-theme.sh load"
 exec "/usr/bin/easyeffects --gapplication-service"
 exec "/usr/bin/otd-daemon"
-#exec_always = swayidle -w before-sleep "/sbin/gtklock -d --time-format \"%H:%M\" --date-format \"%A, %d.%m.%Y\" -s $HOME/.config/gtklock/andro/style.css"
+exec "/usr/bin/swayidle -w before-sleep "$HOME/.config/andro/scripts/wm/gtklock.sh""
 
 exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
+exec "/usr/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway"
 
 seat seat0 xcursor_theme Bibata-Modern-Ice 22
 
@@ -73,13 +73,15 @@ input type:touchpad {
 #    corner_radius 0;
 #}
 
-# titlebar enabled
+# with titlebar
 #client.focused   "#895470" "#000000" "#895470" "#000000" "#000000"
 #default_border normal
+#default_floating_border normal
 
-# titlebar disabled
+# without titlebar
 client.focused   "#895470" "#000000" "#895470" "#000000" "#895470"
 default_border pixel 1
+default_floating_border pixel 1
 
 client.focused_inactive "#000000" "#000000" "#663e54" "#000000" "#000000"
 client.unfocused "#000000" "#000000" "#663e54" "#000000" "#000000"
@@ -92,7 +94,6 @@ titlebar_padding 1
 
 focus_follows_mouse no
 
-for_window [shell=".*"] title_format "%title [%shell]"
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
@@ -127,8 +128,8 @@ floating_modifier $meta
 #bindsym $meta+button2 resize
 #bindsym $meta+button1 move
 
-bindsym $meta+shift+b exec swaymsg reload && $HOME/.config/sway/scripts/waybar-theme.sh load
-bindsym $meta+ctrl+return exec "rofi -show drun -theme $HOME/.config/rofi/themes/andro.rasi -display-drun ''"
+bindsym $meta+shift+b exec "swaymsg reload && $HOME/.config/sway/scripts/waybar-theme.sh load"
+bindsym $meta+ctrl+return exec "wofi --conf $HOME/.config/wofi/andro/config --style $HOME/.config/wofi/andro/style.css"
 bindsym $meta+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh"
 bindsym ctrl+$meta+mod1+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh suspend"
 bindsym $meta+shift+s exec "$HOME/.config/andro/scripts/misc/screenshot.sh area"

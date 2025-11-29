@@ -75,7 +75,7 @@ window#waybar.empty {
 #temperature,
 #backlight,
 #pulseaudio,
-#power-profiles-daemon {
+#battery {
     padding: 0px 15px 0px 0px;
 }
 

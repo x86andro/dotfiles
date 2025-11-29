@@ -29,7 +29,7 @@ aur_helper() {
 }
 
 generic() {
-    yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc jq htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek man-db less
+    yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc jq htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek man-db less tree
 }
 
 fonts() {
@@ -49,11 +49,11 @@ drivers_intel() {
 }
 
 sway() {
-    yay -S --noconfirm --needed swayfx swaybg xdg-desktop-portal xorg-xwayland wev
+    yay -S --noconfirm --needed swayfx swaybg swayidle xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr xorg-xwayland wev
 }
 
 hyprland() {
-    yay -S --noconfirm --needed hyprland hyprutils hyprpaper swayidle xdg-desktop-portal-hyprland xorg-xwayland wev
+    yay -S --noconfirm --needed hyprland hyprutils hyprpaper swayidle xdg-desktop-portal xdg-desktop-portal-hyprland xorg-xwayland wev
 }
 
 polkit() {
@@ -80,7 +80,7 @@ bluetooth() {
 }
 
 dotfiles_dependencies() {
-    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts rofi-wayland starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
+    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts wofi starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
 }
 
 printer() {

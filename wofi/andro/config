@@ -1,0 +1,14 @@
+mode=drun,run
+show_icons=true
+icon_theme=Papirus
+term=alacritty
+image_size=16px
+width=480px
+height=27%
+
+case_sensitive=false
+allow_images=true
+hide_scroll=true
+no_actions=true
+use_search_box=false
+prompt=

@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 action="$1"
 wallpaper="$2"
 wallpaper_dir="$HOME/Pictures/wallpapers"
 waybar_override_file="$HOME/.config/waybar/andro/override.css"
+valid_extensions="\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg)$"
 debug=false
 
 
@@ -81,7 +82,6 @@ generate_palette() {
     fi
     echo "[w] $HOME/.cache/wal/"*""
     echo "[+] color palette generated"
-    #source $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/wallpaper-brightness.sh $wallpaper $waybar_override_file
     reload_waybar
 }
 
@@ -142,7 +142,7 @@ if [[ $debug == "true" ]]; then
 fi
 
 print_usage() {
-    echo "usage: $(basename "$0") [ list | set <wallpaper> | set-temp <wallpaper> | set-random | load | help ]"
+    echo "usage: $(basename "$0") [ list | set <wallpaper> | set random | set-temp <wallpaper> | set-temp random | load | help ]"
 }
 
 
@@ -151,6 +151,12 @@ if [[ -z $@ ]]; then
     print_usage
     exit 1
 elif [[ $action == "set" || $action == "set-temp" ]]; then
+    if [[ "$wallpaper" == "random" ]]; then
+        random_wallpaper_file="$("$0" list | grep -E "$valid_extensions" | shuf -n 1)"
+        "$0" "$action" "$wallpaper_dir/$random_wallpaper_file"
+        exit
+    fi
+
     if [[ ! -f "$wallpaper" ]]; then
         if [[ "$wallpaper" != */* ]]; then
             wallpaper="$wallpaper_dir/$wallpaper"
@@ -163,9 +169,6 @@ elif [[ $action == "set" || $action == "set-temp" ]]; then
     action
     echo "[+] wallpaper set"
     exit
-elif [[ $action == "set-random" ]]; then
-    source $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/wallpaper.sh set $(source $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/wallpaper.sh list | sed '1d;$d' | shuf -n 1)
-    exit
 elif [[ $action == "load" ]]; then
     echo "[i] image: $wallpaper"
     detect_compositor
@@ -174,11 +177,11 @@ elif [[ $action == "load" ]]; then
 elif [[ $action == "list" ]]; then
     echo ""
     if [ -d "$wallpaper_dir" ]; then
-        if ! ls -1 "$wallpaper_dir" | grep -Ei "\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg)$" | sort | grep -q .; then
+        if ! ls -1 "$wallpaper_dir" | grep -E "$valid_extensions" | sort | grep -q .; then
             echo "there are no wallpapers in $wallpaper_dir"
             exit 1
         fi
-        ls -1 "$wallpaper_dir" | grep -Ei "\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg)$" | sort
+        ls -1 "$wallpaper_dir" | grep -E "$valid_extensions" | sort
         exit 0
     fi
 elif [[ $action == "help" ]]; then

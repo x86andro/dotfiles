@@ -2,13 +2,18 @@
 
 config="$HOME/.config"
 share="$HOME/.local/share"
-
 dotfiles="$(cd "$(dirname "$0")" && pwd)"
+
+if [ "$1" == "copy" ]; then
+    action=(cp -r)
+elif [ "$1" == "symlink" ]; then
+    action=(ln -snf)
+fi
 
 mkdir -p "$config"
 mkdir -p "$share"
 
-find "$dotfiles" -type f -name "*.sh" -print0 | xargs -0 chmod +x
+find "$dotfiles" -type f -name "*.sh" -exec chmod +x {} +
 
 echo -e "
 export XCURSOR_SIZE=22
@@ -50,41 +55,25 @@ symlink() {
     mkdir -p "$(dirname "$target_dir")"
     backup
     echo -e "[+] $source_dir --> $target_dir"
-    ln -snf "$source_dir" "$target_dir"
+    "${action[@]}" "$source_dir" "$target_dir"
 }
 
 for dotfiles_directory in "$dotfiles"/*; do
-  [ -d "$dotfiles_directory" ] || continue
-  dirname=$(basename "$dotfiles_directory")
-
-[[ $dirname =~ ^(hypr|icons|wal|rofi|andro|sway|Thunar)$ ]] && continue
-
-  if [ -d "$dotfiles_directory/andro" ]; then
-      symlink "$dotfiles/$dirname/andro" "$config/$dirname/andro"
-  else
-      symlink "$dotfiles_directory" "$config/$dirname"
-  fi
+    [ -d "$dotfiles_directory" ] || continue
+    dirname=$(basename "$dotfiles_directory")
+    symlink "$dotfiles_directory" "$config/$dirname"
 done
 
-symlink "$dotfiles/andro" "$config/andro"
-symlink "$dotfiles/hypr/hyprland.conf" "$config/hypr/hyprland.conf"
-symlink "$dotfiles/hypr/andro" "$config/hypr/andro"
-symlink "$dotfiles/andro/scripts/wm" "$config/hypr/scripts"
-symlink "$dotfiles/sway/config" "$config/sway/config"
-symlink "$dotfiles/andro/scripts/wm" "$config/sway/scripts"
-symlink "$dotfiles/icons/default/index.theme" "$share/icons/default/index.theme"
-symlink "$dotfiles/wal/templates/colors-hyprland.conf" "$config/wal/templates/colors-hyprland.conf"
-symlink "$dotfiles/rofi/config.rasi" "$config/rofi/config.rasi"
-symlink "$dotfiles/rofi/themes/andro.rasi" "$config/rofi/themes/andro.rasi"
-cp -r "$dotfiles/Thunar" "$config"
-
+action=(ln -snf)
+symlink "$config/andro/scripts/wm" "$config/hypr/scripts"
+symlink "$config/andro/scripts/wm" "$config/sway/scripts"
 mkdir -p "$HOME/Pictures"
 symlink "$dotfiles/andro/wallpapers" "$HOME/Pictures/wallpapers"
-
 mkdir -p "$HOME/.local/bin"
-symlink "$dotfiles/andro/scripts/wm/waybar-theme.sh" "$HOME/.local/bin/waybar-theme"
-symlink "$dotfiles/andro/scripts/wm/wallpaper.sh" "$HOME/.local/bin/wallpaper"
+symlink "$config/andro/scripts/wm/waybar-theme.sh" "$HOME/.local/bin/waybar-theme"
+symlink "$config/andro/scripts/wm/wallpaper.sh" "$HOME/.local/bin/wallpaper"
 
-$dotfiles/andro/scripts/wm/waybar-theme.sh set andro/simple
 $dotfiles/pacstrap.sh install-dependencies
-$dotfiles/andro/scripts/wm/env/gsettings.sh
+$config/andro/scripts/wm/env/gsettings.sh
+$config/andro/scripts/wm/wallpaper.sh set random
+$config/andro/scripts/wm/waybar-theme.sh set andro/simple

@@ -6,7 +6,7 @@
 
     "modules-left": ["custom/bracket-left", "sway/workspaces", "hyprland/workspaces", "custom/bracket-right", "custom/mediaplayer"],
     "modules-center": ["sway/window", "hyprland/window"],
-    "modules-right": ["network", "bluetooth", "pulseaudio", "custom/tray-bracket-left", "tray", "custom/tray-bracket-right", "battery", "clock"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "custom/tray-bracket-left", "tray", "custom/tray-bracket-right", "clock"],
 
 
     "sway/workspaces": {
@@ -82,7 +82,7 @@
     },
 
     "pulseaudio": {
-        "format": "[ {volume}% ]",
+        "format": "[ v: {volume}% ]",
         "format-icons": ["|      ", "||    ", "|||  ", "||||"],
         "format-bluetooth": "[ bt: {volume}% ]",
         "format-muted":"[ muted ]",

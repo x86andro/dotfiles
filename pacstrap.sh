@@ -95,7 +95,7 @@ laptop() {
 }
 
 print_usage() {
-    echo -e "choose what to install by un/commenting options in the install() section of this script\nonce you're done, run <$(basename "$0") install> to begin installation\n"
+    echo -e "choose what to install by un/commenting options in the install() section of this script\nonce you're done, run <$(basename "$0") install> to begin installation\nnote that this script supports only arch-based distributions\n"
 }
 
 su() {
@@ -117,18 +117,28 @@ aur_helper_check() {
     fi
 }
 
-multilib_check {
+multilib_check() {
     if ! grep -A1 '^\[multilib\]' "/etc/pacman.conf" | grep -q '^Include *= *'; then
         echo -n "[!] 32bit package support is disabled!\nuncomment [multilib] and the line after it in /etc/pacman.conf, and try again."
         exit 1
     fi
 }
 
+os_check() {
+    [ -f /etc/os-release ] && . /etc/os-release
+    if [[ ! ( "$ID" == "arch" || "$ID_LIKE" == *"arch"* ) ]]; then
+	echo "[!] this script supports only arch-based distributions, exiting.."
+	exit 1
+    fi
+}
+
+
 if [[ $# -eq 0 ]]; then
     echo "no arguments passed."
     print_usage
     exit 1
 elif [[ $1 == "install" ]]; then
+    os_check
     aur_helper_check
     multilib_check
     yay -Sy --save --answerclean None --answerdiff None --noansweredit None --noconfirm --removemake
@@ -138,6 +148,7 @@ elif [[ $1 == "install" ]]; then
     yay -Sy --save --noanswerclean --noanswerdiff --noansweredit --askremovemake > /dev/null 2>&1
     exit
 elif [[ $1 == "install-dependencies" ]]; then
+    os_check
     aur_helper_check
     multilib_check
     yay -Sy --save --answerclean --answerdiff --noansweredit --noconfirm --removemake > /dev/null 2>&1

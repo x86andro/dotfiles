@@ -1,7 +1,6 @@
 /* based on https://github.com/newmanls/rofi-themes-collection/blob/master/themes/squared-nord.rasi */
 
-/* ROFI SQUARED THEME USING THE NORD PALETTE  */
-/* Author: Newman Sanchez (https://github.com/newmanls) */
+@theme "~/.cache/wal/colors-rofi-min.rasi"
 
 * {
     font:   "FiraCode Nerd Font Medium 12";
@@ -19,6 +18,10 @@
     margin:     0;
     padding:    0;
     spacing:    0;
+}
+
+* {
+   accent-color: @color4;
 }
 
 window {

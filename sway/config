@@ -129,7 +129,7 @@ floating_modifier $meta
 #bindsym $meta+button1 move
 
 bindsym $meta+shift+b exec "swaymsg reload && $HOME/.config/sway/scripts/waybar-theme.sh load"
-bindsym $meta+ctrl+return exec "wofi --conf $HOME/.config/wofi/andro/config --style $HOME/.config/wofi/andro/style.css"
+bindsym $meta+ctrl+return exec "rofi -show drun -display-drun '' -theme $HOME/.config/rofi/themes/andro.rasi"
 bindsym $meta+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh"
 bindsym ctrl+$meta+mod1+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh suspend"
 bindsym $meta+shift+s exec "$HOME/.config/andro/scripts/misc/screenshot.sh area"

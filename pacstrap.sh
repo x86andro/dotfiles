@@ -80,7 +80,7 @@ bluetooth() {
 }
 
 dotfiles_dependencies() {
-    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts wofi starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
+    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts rofi starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
 }
 
 printer() {

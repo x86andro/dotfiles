@@ -134,7 +134,7 @@ bindsym $meta+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh"
 bindsym ctrl+$meta+mod1+l exec "$HOME/.config/andro/scripts/wm/gtklock.sh suspend"
 bindsym $meta+shift+s exec "$HOME/.config/andro/scripts/misc/screenshot.sh area"
 bindsym $meta+s exec "$HOME/.config/andro/scripts/misc/screenshot.sh all"
-bindsym ctrl+shift+escape exec "alacritty -e htop"
+bindsym ctrl+shift+escape exec "alacritty -e bash -i -c htop"
 bindsym ctrl+mod1+delete exec "missioncenter"
 bindsym $meta+g exec "$HOME/.config/andro/scripts/personal/clip.sh clip"
 

@@ -46,8 +46,8 @@ export PATH="$HOME/.local/bin:$PATH"
 " >> $HOME/.profile
 echo "[w] --> $HOME/.profile"
 
-echo -e '\nif command -v starship &> /dev/null; then eval "$(starship init bash)"; fi\nif [[ -f "$HOME/.cache/wal/sequences" ]]; then cat "$HOME/.cache/wal/sequences"; fi\n[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases' >> "$HOME/.bashrc" && echo "[w] --> $HOME/.bashrc"
-[ -f "$HOME/.zshrc" ] && echo -e '\nif command -v starship &> /dev/null; then eval "$(starship init zsh)"; fi\nif [[ -f "$HOME/.cache/wal/sequences" ]]; then cat "$HOME/.cache/wal/sequences"; fi' >> "$HOME/.zshrc" && echo "[w] --> $HOME/.zshrc"
+echo -e '\nif command -v starship &> /dev/null; then eval "$(starship init bash)"; fi\n[ -f ~/.cache/wal/sequences ] && cat $HOME/.cache/wal/sequences\n[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases' >> "$HOME/.bashrc" && echo "[w] --> $HOME/.bashrc"
+[ -f "$HOME/.zshrc" ] && echo -e '\nif command -v starship &> /dev/null; then eval "$(starship init zsh)"; fi\n[ -f ~/.cache/wal/sequences ] && cat $HOME/.cache/wal/sequences' >> "$HOME/.zshrc" && echo "[w] --> $HOME/.zshrc"
 
 backup() {
     if [ -e "$target_dir" ]; then

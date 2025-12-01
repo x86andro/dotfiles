@@ -89,7 +89,7 @@
 	    "tooltip-format-wifi": "{essid} [{bssid}] [{frequency}GHz]\nStrength: {signalStrength}%, {signaldBm}dBm\nLocal IP: {ipaddr} @ {ifname}",
         "tooltip-format-ethernet": "Local IP: {ipaddr} @ {ifname}",
     	"on-click": "nm-connection-editor",
-    	"on-click-right": "alacritty -e nmtui"
+    	"on-click-right": "alacritty -e bash -i -c nmtui"
     },
 
     "temperature": {
@@ -119,7 +119,7 @@
     	"tooltip-format-enumerate-connected": "{device_alias} [{device_address}]",
     	"tooltip-format-enumerate-connected-battery": "{device_alias} [{device_battery_percentage}%] [{device_address}]",
     	"on-click": "blueman-manager & sleep 1s && pkill blueman-applet",
-        "on-click-right": "alacritty -e bluetoothctl"
+        "on-click-right": "alacritty -e bash -i -c bluetoothctl"
     },
 
 
@@ -128,7 +128,7 @@
         "interval": 10,
         "return-type": "json",
         "on-click": "nm-connection-editor",
-	    "on-click-right": "alacritty -e nmtui"
+	    "on-click-right": "alacritty -e bash -i -c nmtui"
     },
 
     "custom/mediaplayer": {

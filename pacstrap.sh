@@ -28,6 +28,10 @@ aur_helper() {
     rm -rf yay
 }
 
+dotfiles_dependencies() {
+    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts rofi starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
+}
+
 generic() {
     yay -S --noconfirm --needed linux-headers bash-completion gcc gcc-libs 7z curl nano mc bc jq htop s-tui tmux libsensors gvfs gvfs-mtp android-udev libmtp android-tools greetd greetd-agreety fastfetch pacseek man-db less tree
 }
@@ -66,7 +70,7 @@ wine() {
 
 sound() {
     yay -S --noconfirm --needed pipewire lib32-pipewire pipewire-pulse pavucontrol wireplumber
-    systemctl --user enable --now {pipewire,pipewire-pulse,wireplumber}.service
+    systemctl --user enable --now pipewire.service pipewire-pulse.service wireplumber.service
 }
 
 network() {
@@ -79,10 +83,6 @@ bluetooth() {
     sudo systemctl enable bluetooth.service
 }
 
-dotfiles_dependencies() {
-    yay -S --noconfirm --needed ttf-firacode-nerd cantarell-fonts rofi starship alacritty waybar dunst libnotify slurp grim gtklock playerctl python-pywal python-pydbus network-manager-applet wl-clipboard nautilus nautilus-open-any-terminal
-}
-
 printer() {
     yay -S cups gutenprint
     sudo systemctl enable cups.service
@@ -90,7 +90,7 @@ printer() {
 
 laptop() {
     yay -S --noconfirm --needed acpilight laptop-mode-tools upower powerstat powertop tuned power-profiles-daemon throttled
-    sudo systemctl enable {laptop-mode,tuned,throttled}.service
+    sudo systemctl enable laptop-mode.service tuned.service throttled.service
     sudo usermod -aG video $USER
 }
 

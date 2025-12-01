@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 wallpaper="$1"
 output="$2"
 rollover=110
@@ -40,32 +41,30 @@ echo "" > $output
 i=1
 
 for entry in "${regions[@]}"; do
-  name=$(echo "$entry" | awk '{print $1}')
-  coords=$(echo "$entry" | awk '{print $2}')
+    name=$(echo "$entry" | awk '{print $1}')
+    coords=$(echo "$entry" | awk '{print $2}')
 
-  hexcode=$(magick "$wallpaper" -crop "${region_width}x${region_height}+$coords" -resize 1x1\! -depth 8 -colorspace RGB txt:- | grep -om1 '#[0-9A-Fa-f]\{6\}')
+    hexcode=$(magick "$wallpaper" -crop "${region_width}x${region_height}+$coords" -resize 1x1\! -depth 8 -colorspace RGB txt:- | grep -om1 '#[0-9A-Fa-f]\{6\}')
 
-  r=$((16#${hexcode:1:2}))
-  g=$((16#${hexcode:3:2}))
-  b=$((16#${hexcode:5:2}))
+    r=$((16#${hexcode:1:2}))
+    g=$((16#${hexcode:3:2}))
+    b=$((16#${hexcode:5:2}))
 
-  brightness=$(awk -v r=$r -v g=$g -v b=$b 'BEGIN {
-    printf "%.2f", (0.299*r + 0.587*g + 0.114*b)
-  }')
+    brightness=$(awk -v r=$r -v g=$g -v b=$b 'BEGIN {
+        printf "%.2f", (0.299*r + 0.587*g + 0.114*b)
+    }')
 
-  if (( $(echo "$brightness < $rollover" | bc -l) )); then
-    text_color="white"
-    condition="<"
-  else
-    text_color="black"
-    condition=">"
-  fi
+    if (( $(echo "$brightness < $rollover" | bc -l) )); then
+        text_color="white"
+        condition="<"
+    else
+        text_color="black"
+        condition=">"
+    fi
 
-  #echo "[d] $name: $text_color [$brightness]"
-
-  declare "bcolor$i=$brightness"
-  (( i++ ))
-  echo "@define-color color-$name $text_color;" >> "$output"
+    declare "bcolor$i=$brightness"
+    (( i++ ))
+    echo "@define-color color-$name $text_color;" >> "$output"
 done
 
 echo "[d] l: $bcolor1 | c: $bcolor2 | r: $bcolor3"

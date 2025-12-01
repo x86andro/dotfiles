@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 action="$1"
 theme_name="$2"
+load_override="$3"
+waybar_conf="$HOME/.config/waybar/waybar.ini"
 config="config"
 css="style.css"
 debug=false
@@ -17,12 +20,12 @@ resolve() {
 }
 
 set_theme() {
-    echo "$theme" > "$HOME/.config/waybar/waybar.ini"
-    echo "[w] $HOME/.config/waybar/waybar.ini"
+    echo "$theme" > "$waybar_conf"
+    echo "[w] $waybar_conf"
 }
 
 load_theme() {
-    killall waybar
+    killall waybar > /dev/null 2>&1
     sleep 0.25
     if $debug; then
         waybar -c "$theme/$config" -s "$theme/$css" &
@@ -53,12 +56,14 @@ elif [[ $action == "list" ]]; then
     find -L "$HOME/.config/waybar/" -maxdepth 2 -type d -exec sh -c '[ -f "$1/config" ] && [ -f "$1/style.css" ] && printf "%s\n" "${1#"$HOME/.config/waybar/"}"' _ {} \; | sort
     exit 0
 elif [[ $action == "load" ]]; then
-    theme="$(cat "$HOME/.config/waybar/waybar.ini")"
+    theme="$(cat "$waybar_conf")" > /dev/null 2>&1
     load_theme
 elif [[ $action == "set" ]]; then
     resolve
     set_theme
-    load_theme
+    if [ "$load_override" != "dont-load" ]; then
+        load_theme
+    fi
 elif [[ $action == "set-temp" ]]; then
     resolve
     load_theme

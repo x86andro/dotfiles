@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
+
 action="$1"
 wallpaper="$2"
+compositor_override="$3"
+hyprpaper_conf="$HOME/.config/hypr/hyprpaper.conf"
+swaybg_conf="$HOME/.config/sway/swaybg.ini"
 wallpaper_dir="$HOME/Pictures/wallpapers"
 waybar_override_file="$HOME/.config/waybar/andro/override.css"
 valid_extensions="\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg)$"
@@ -12,14 +16,19 @@ set_hypr() {
     echo "preload = $wallpaper" > "$hyprpaper_conf"
     echo "wallpaper = ,$wallpaper" >> "$hyprpaper_conf"
     generate_palette
-    load_hypr
+    if [ "$compositor_override" != "hyprland" ]; then
+        load_hypr
+    fi
 }
 
 load_hypr() {
     if pgrep -x "hyprpaper" > /dev/null; then
         hyprctl hyprpaper reload ,"$wallpaper"
     else
-        hyprpaper_conf="$HOME/.config/hypr/hyprpaper.conf"
+        if [[ ! -f "$hyprpaper_conf" ]]; then
+	    echo -e "[!] $hyprpaper_conf doesn't exist\nrun <$(basename "$0") list> and then <set <file>> to set the wallpaper"
+	    exit 1
+	fi
         hyprctl hyprpaper preload "$hyprpaper_conf"
         hyprctl hyprpaper wallpaper ",$hyprpaper_conf"
         hyprpaper --config "$hyprpaper_conf" &
@@ -42,14 +51,20 @@ set_temp_hypr() {
 }
 
 set_sway() {
-    echo "$wallpaper" > "$HOME/.config/sway/swaybg.ini"
-    echo "[w] $HOME/.config/sway/swaybg.ini"
+    echo "$wallpaper" > "$swaybg_conf"
+    echo "[w] $swaybg_conf"
     generate_palette
-    load_sway
+    if [ "$compositor_override" != "sway" ]; then
+        load_sway
+    fi
 }
 
 load_sway() {
-    wallpaper="$(cat "$HOME/.config/sway/swaybg.ini")"
+    if [[ ! -f "$swaybg_conf" ]]; then
+	echo -e "[!] $swaybg_conf doesn't exist\nrun <$(basename "$0") list> and then <set <file>> to set the wallpaper"
+        exit 1
+    fi
+    wallpaper="$(cat "$swaybg_conf")"
 
     if $debug; then
         swaybg -i "$wallpaper" -m fill &
@@ -73,13 +88,14 @@ set_temp_sway() {
 }
 
 generate_palette() {
-    source $HOME/.config/andro/scripts/wm/wallpaper-brightness.sh $wallpaper $waybar_override_file
+    source "$HOME/.config/andro/scripts/wm/wallpaper-brightness.sh" "$wallpaper" "$waybar_override_file"
 
     if $debug; then
         wal -i "$wallpaper"
     else
         wal -i "$wallpaper" > /dev/null 2>&1
     fi
+
     echo "[w] $HOME/.cache/wal/"*""
     echo "[+] color palette generated"
     reload_waybar
@@ -100,8 +116,7 @@ check_image_path() {
         fi
     fi
 
-    image_regex=".*\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg)$"
-    if ! [[ "$wallpaper" =~ $image_regex ]]; then
+    if ! [[ "$wallpaper" =~ $valid_extensions ]]; then
             echo "[!] $wallpaper does not have a valid image extension."
             exit 1
     fi
@@ -113,9 +128,9 @@ check_image_path() {
 }
 
 detect_compositor() {
-    if pgrep -x "Hyprland" >/dev/null; then
+    if pgrep -x "Hyprland" >/dev/null || [ "$compositor_override" = "hyprland" ]; then
         compositor="hypr"
-    elif pgrep -x "sway" >/dev/null; then
+    elif pgrep -x "sway" >/dev/null || [ "$compositor_override" = "sway" ]; then
         compositor="sway"
     else
         echo -e "unknown compositor.\nthis script supports only hyprland and sway."
@@ -138,7 +153,7 @@ action() {
 }
 
 if [[ $debug == "true" ]]; then
-        silence=" > /dev/null 2>&1"
+    silence=" > /dev/null 2>&1"
 fi
 
 print_usage() {
@@ -153,7 +168,7 @@ if [[ -z $@ ]]; then
 elif [[ $action == "set" || $action == "set-temp" ]]; then
     if [[ "$wallpaper" == "random" ]]; then
         random_wallpaper_file="$("$0" list | grep -E "$valid_extensions" | shuf -n 1)"
-        "$0" "$action" "$wallpaper_dir/$random_wallpaper_file"
+        "$0" "$action" "$wallpaper_dir/$random_wallpaper_file" "$compositor_override"
         exit
     fi
 

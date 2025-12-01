@@ -3,12 +3,27 @@
 config="$HOME/.config"
 share="$HOME/.local/share"
 dotfiles="$(cd "$(dirname "$0")" && pwd)"
+print_usage() {
+    echo -e "usage: $(basename "$0") [ copy | symlink | help ]\nrun <$(basename "$0") copy> to copy the dotfiles, or <$(basename "$0") symlink> to symlink them instead"
+}
 
-if [ "$1" == "copy" ]; then
+if [[ $# -eq 0 ]]; then
+    echo "no arguments passed."
+    print_usage
+    exit 1
+elif [[ "$1" == "copy" ]]; then
     action=(cp -r)
-elif [ "$1" == "symlink" ]; then
+elif [[ "$1" == "symlink" ]]; then
     action=(ln -snf)
+elif [[ "$1" == "help" ]]; then
+    print_usage
+    exit
+else
+    echo "unknown argument passed."
+    print_usage
+    exit 1
 fi
+
 
 mkdir -p "$config"
 mkdir -p "$share"
@@ -28,12 +43,11 @@ export GDK_SCALE=1
 export QT_QPA_PLATFORMTHEME=qt5ct
 export WLR_NO_HARDWARE_CURSORS=1
 export PATH="$HOME/.local/bin:$PATH"
-$HOME/.config/andro/scripts/wm/env/gsettings.sh
 " >> $HOME/.profile
 echo "[w] --> $HOME/.profile"
 
-echo 'if command -v starship &> /dev/null; then eval "$(starship init bash)"; fi' >> "$HOME/.bashrc" && echo "[w] --> $HOME/.bashrc"
-[ -f "$HOME/.zshrc" ] && echo 'if command -v starship &> /dev/null; then eval "$(starship init zsh)"; fi' >> "$HOME/.zshrc" && echo "[w] --> $HOME/.zshrc"
+echo -e '\nif command -v starship &> /dev/null; then eval "$(starship init bash)"; fi\nif [[ -f "$HOME/.cache/wal/sequences" ]]; then cat "$HOME/.cache/wal/sequences"; fi\n[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases' >> "$HOME/.bashrc" && echo "[w] --> $HOME/.bashrc"
+[ -f "$HOME/.zshrc" ] && echo -e '\nif command -v starship &> /dev/null; then eval "$(starship init zsh)"; fi\nif [[ -f "$HOME/.cache/wal/sequences" ]]; then cat "$HOME/.cache/wal/sequences"; fi' >> "$HOME/.zshrc" && echo "[w] --> $HOME/.zshrc"
 
 backup() {
     if [ -e "$target_dir" ]; then
@@ -68,12 +82,14 @@ action=(ln -snf)
 symlink "$config/andro/scripts/wm" "$config/hypr/scripts"
 symlink "$config/andro/scripts/wm" "$config/sway/scripts"
 mkdir -p "$HOME/Pictures"
-symlink "$dotfiles/andro/wallpapers" "$HOME/Pictures/wallpapers"
+cp -r "$dotfiles/andro/wallpapers" "$HOME/Pictures"
 mkdir -p "$HOME/.local/bin"
 symlink "$config/andro/scripts/wm/waybar-theme.sh" "$HOME/.local/bin/waybar-theme"
 symlink "$config/andro/scripts/wm/wallpaper.sh" "$HOME/.local/bin/wallpaper"
 
+echo "[+] installing dependencies.."
 $dotfiles/pacstrap.sh install-dependencies
 $config/andro/scripts/wm/env/gsettings.sh
-$config/andro/scripts/wm/wallpaper.sh set random
-$config/andro/scripts/wm/waybar-theme.sh set andro/simple
+$config/andro/scripts/wm/waybar-theme.sh set andro/simple dont-load
+$config/andro/scripts/wm/wallpaper.sh set random sway
+$config/andro/scripts/wm/wallpaper.sh set random hyprland

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # requires: slurp, grim, wl-clipboard (wl-copy)
 # optional: libnotify (notify-send), gimp
 

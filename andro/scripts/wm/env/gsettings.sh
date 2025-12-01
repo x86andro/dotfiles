@@ -1,12 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
-gsettings set org.gnome.desktop.interface font-name "Cantarell 11"
-gsettings set org.gnome.desktop.interface cursor-theme "Bibata-Modern-Ice"
-gsettings set org.gnome.desktop.interface cursor-size "22"
-gsettings set org.gnome.desktop.interface font-hinting "slight"
-gsettings set org.gnome.desktop.interface text-scaling-factor "1"
-gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal alacritty
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+gsettings set org.gnome.desktop.interface accent-color 'purple'
+gsettings set org.gnome.desktop.interface font-name 'Cantarell 11'
+gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Ice'
+gsettings set org.gnome.desktop.interface cursor-size 22
+gsettings set org.gnome.desktop.interface font-hinting 'slight'
+gsettings set org.gnome.desktop.interface text-scaling-factor 1
+gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small-plus'
+gsettings set com.github.stunkymonkey.nautilus-open-any-terminal terminal 'alacritty'
 gsettings set com.github.stunkymonkey.nautilus-open-any-terminal use-generic-terminal-name true

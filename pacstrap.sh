@@ -75,7 +75,7 @@ sound() {
 
 network() {
     yay -S --noconfirm --needed inetutils iw wireless_tools net-tools networkmanager
-    sudo systemctl enable NetworkManager.service
+    sudo systemctl enable --now NetworkManager.service
 }
 
 bluetooth() {
@@ -84,13 +84,13 @@ bluetooth() {
 }
 
 printer() {
-    yay -S cups gutenprint
-    sudo systemctl enable cups.service
+    yay -S --noconfirm --needed libusb cups cups-pdf foomatic-db-ppds foomatic-db-gutenprint-ppds system-config-printer
+    sudo systemctl enable --now cups.socket
 }
 
 laptop() {
     yay -S --noconfirm --needed acpilight laptop-mode-tools upower powerstat powertop tuned power-profiles-daemon throttled
-    sudo systemctl enable laptop-mode.service tuned.service throttled.service
+    sudo systemctl enable --now laptop-mode.service tuned.service throttled.service
     sudo usermod -aG video $USER
 }
 

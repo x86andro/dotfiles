@@ -81,6 +81,7 @@ done
 action=(ln -snf)
 symlink "$config/andro/scripts/wm" "$config/hypr/scripts"
 symlink "$config/andro/scripts/wm" "$config/sway/scripts"
+symlink "$config/andro/scripts/wm" "$config/niri/scripts"
 mkdir -p "$HOME/Pictures"
 cp -r "$dotfiles/andro/wallpapers" "$HOME/Pictures"
 mkdir -p "$HOME/.local/bin"

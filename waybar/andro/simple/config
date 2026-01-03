@@ -4,8 +4,8 @@
     "height": 27,
     "reload_style_on_change": true,
 
-    "modules-left": ["custom/bracket-left", "sway/workspaces", "hyprland/workspaces", "custom/bracket-right", "custom/mediaplayer"],
-    "modules-center": ["sway/window", "hyprland/window"],
+    "modules-left": ["custom/bracket-left", "sway/workspaces", "hyprland/workspaces", "niri/workspaces", "custom/bracket-right", "custom/mediaplayer"],
+    "modules-center": ["sway/window", "hyprland/window", "niri/window"],
     "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "custom/tray-bracket-left", "tray", "custom/tray-bracket-right", "clock"],
 
 
@@ -16,9 +16,22 @@
         "cursor": false
     },
 
+    "niri/workspaces": {
+        "disable-scroll": true,
+        "disable-markup": true,
+        "format": "{index}",
+        "cursor": false
+    },
+
     "sway/window": {
     	"format": "[ {} ]",
     	"max-length": 150,
+        "tooltip": false
+    },
+
+    "niri/window": {
+        "format": "[ {} ]",
+        "max-length": 150,
         "tooltip": false
     },
 
